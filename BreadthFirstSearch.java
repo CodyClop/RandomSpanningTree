@@ -15,11 +15,11 @@ public class BreadthFirstSearch {
 
         while (! vertices.isEmpty()) {
             int vertex = vertices.pollLast();
-            for (Edge neighbor : graph.neighbours(vertex)) {
-                if (! visited[neighbor.dest]) {
-                    vertices.addFirst(neighbor.dest);
-                    visited[neighbor.dest] = true;
-                    arcs.add(new Arc(neighbor, false));
+            for (Arc neighbor : graph.outNeighbours(vertex)) {
+                if (! visited[neighbor.getDest()]) {
+                    vertices.addFirst(neighbor.getDest());
+                    visited[neighbor.getDest()] = true;
+                    arcs.add(neighbor);
                 }
             }
         }

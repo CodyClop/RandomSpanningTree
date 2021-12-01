@@ -27,7 +27,7 @@ public class Graph implements Iterable<Edge>{
 	
 	public Graph(int upperBound) {
 		this.order = 0;
-		this.adjacency = makeList(upperBound); 
+		this.adjacency = makeList(upperBound);
 		this.inAdjacency = makeList(upperBound); 
 		this.outAdjacency = makeList(upperBound); 
 	}
