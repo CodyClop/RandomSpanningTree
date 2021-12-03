@@ -42,7 +42,7 @@ public class Main {
 //		Graph graph = new ErdosRenyi(1_000, 100).graph;
 //		Graph graph = new Lollipop(1_000).graph;
 
-        int nbrOfSamples = 10;
+        int nbrOfSamples = 1;
         int diameterSum = 0;
         double eccentricitySum = 0;
         long wienerSum = 0;

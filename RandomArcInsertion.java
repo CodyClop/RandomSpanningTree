@@ -5,7 +5,7 @@ public class RandomArcInsertion {
     private static int[] vertices_rank;
 
     public static ArrayList<Arc> generateTree(Graph graph) {
-        LinkedList<Arc> arcs = new LinkedList<>();
+        ArrayList<Arc> arcsToAdd = new ArrayList<>();
         ArrayList<Arc> solution = new ArrayList<>();
 
         vertices_root = new int[graph.order];
@@ -16,16 +16,16 @@ public class RandomArcInsertion {
             vertices_root[k] = k;
             vertices_rank[k] = 0;
 
-            arcs.addAll(graph.outNeighbours(k));
+            arcsToAdd.addAll(graph.outNeighbours(k));
         }
 
 
 
-        while(!arcs.isEmpty()) {
+        while(!arcsToAdd.isEmpty()) {
             // pick random arc
-            int randomArcIndex = new Random().nextInt(arcs.size());
-            Arc randomArc = arcs.get(randomArcIndex);
-            arcs.remove(randomArcIndex);
+            int randomArcIndex = new Random().nextInt(arcsToAdd.size());
+            Arc randomArc = arcsToAdd.get(randomArcIndex);
+            arcsToAdd.remove(randomArcIndex);
 
             // check if it creates a cycle
             if (find_root(randomArc.getSource()) == find_root(randomArc.getDest())) continue;
