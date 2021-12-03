@@ -22,7 +22,8 @@ public class Main {
         //ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
         //ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot);
         //ArrayList<Arc> randomArcTree = AldousBroder.generateTree(graph, randomRoot);
-        ArrayList<Arc> randomArcTree = Wilson.generateTree(graph, randomRoot);
+        //ArrayList<Arc> randomArcTree = Wilson.generateTree(graph, randomRoot);
+        ArrayList<Arc> randomArcTree = RandomArcInsertion.generateTree(graph);
 
         randomTree = new ArrayList<>();
 
@@ -41,7 +42,7 @@ public class Main {
 //		Graph graph = new ErdosRenyi(1_000, 100).graph;
 //		Graph graph = new Lollipop(1_000).graph;
 
-        int nbrOfSamples = 20;
+        int nbrOfSamples = 10;
         int diameterSum = 0;
         double eccentricitySum = 0;
         long wienerSum = 0;
