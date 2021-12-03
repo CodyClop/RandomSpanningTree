@@ -19,7 +19,9 @@ public class Main {
         //ArrayList<Arc> randomArcTree = BreadthFirstSearch.generateTree(graph,0);
 
         // Random Algorithms
-        ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
+        //ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
+        ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot);
+
         randomTree = new ArrayList<>();
 
         for (Arc a : randomArcTree) randomTree.add(a.support);
