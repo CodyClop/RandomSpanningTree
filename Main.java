@@ -20,7 +20,8 @@ public class Main {
 
         // Random Algorithms
         //ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
-        ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot);
+        //ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot);
+        ArrayList<Arc> randomArcTree = AldousBroder.generateTree(graph, randomRoot);
 
         randomTree = new ArrayList<>();
 
