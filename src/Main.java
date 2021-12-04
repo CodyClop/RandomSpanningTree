@@ -50,16 +50,16 @@ public class Main {
 
         /* -- Choose Type Of graph.Graph For Measures -- */
 
-        Graph graph = new Grid(1920/11,1080/11).graph;
-//		Graph graph = new Complete(400).graph;
-//		Graph graph = new ErdosRenyi(1_000, 100).graph;
-//		Graph graph = new Lollipop(1_000).graph;
+//        Graph graph = new Grid(1920/11,1080/11).graph;
+//		Graph graph = new Complete(500).graph;
+		Graph graph = new ErdosRenyi(2_000, 100).graph;
+//		Graph graph = new Lollipop(400).graph;
 
 
-        int nbrOfSamples = 1; // number of spanning trees generated
+        int nbrOfSamples = 20; // number of spanning trees generated
         makeMeasures(graph, nbrOfSamples); // comment out to skip measures and only see visualisation
 
-        visualiseOnGrid(); // uncomment to show a representation of the Spanning Tree given by chosen algorithm on a grid
+        //visualiseOnGrid(); // uncomment to show a representation of the Spanning Tree given by chosen algorithm on a grid
     }
 
     /**
