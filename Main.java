@@ -1,31 +1,28 @@
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 
 public class Main {
-
-    @SuppressWarnings("unused")
-    private final static Random gen = new Random();
-
+    /**
+     * Generates a spanning tree.
+     * Choose the algorithm to be tested here
+     */
     public static ArrayList<Edge> genTree(Graph graph, int randomRoot) {
-        ArrayList<Edge> randomTree;
+        ArrayList<Edge> randomTree = new ArrayList<>();
 
-        // Non-random BFS
-        //ArrayList<Arc> randomArcTree = BreadthFirstSearch.generateTree(graph,0);
+        /* -- Choose Uniform Random Spanning Tree Algorithm -- */
 
-        // Random Algorithms
-        //ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
-        //ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot);
-        //ArrayList<Arc> randomArcTree = AldousBroder.generateTree(graph, randomRoot);
-        //ArrayList<Arc> randomArcTree = Wilson.generateTree(graph, randomRoot);
-        ArrayList<Arc> randomArcTree = RandomArcInsertion.generateTree(graph);
+        ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
+//        ArrayList<Arc> randomArcTree = AldousBroder.generateTree(graph, randomRoot);
+//        ArrayList<Arc> randomArcTree = Wilson.generateTree(graph, randomRoot);
+//        ArrayList<Arc> randomArcTree = RandomArcInsertion.generateTree(graph);
 
-        randomTree = new ArrayList<>();
+
+        /* -- Choose a Non-Random/Non-Uniform Spanning Tree Algorithm for comparison -- */
+//        ArrayList<Arc> randomArcTree = RandomBFS.generateTree(graph, randomRoot); // Random but not uniform
+//        ArrayList<Arc> randomArcTree = BreadthFirstSearch.generateTree(graph, randomRoot); // Not Random
 
         for (Arc a : randomArcTree) randomTree.add(a.support);
 
@@ -33,36 +30,47 @@ public class Main {
     }
 
 
-    public static void main(String argv[]) throws InterruptedException {
+    public static void main(String[] argv) {
 
-        Grid grid = new Grid(1920/11,1080/11);
-        Graph graph = grid.graph;
+        /* -- Choose Type Of Graph For Measures -- */
 
+        Graph graph = new Grid(1920/11,1080/11).graph;
 //		Graph graph = new Complete(400).graph;
 //		Graph graph = new ErdosRenyi(1_000, 100).graph;
 //		Graph graph = new Lollipop(1_000).graph;
 
-        int nbrOfSamples = 1;
+
+        int nbrOfSamples = 1; // number of spanning trees generated
+        makeMeasures(graph, nbrOfSamples); // comment out to skip measures and only see visualisation
+
+        visualiseOnGrid(); // uncomment to show a representation of the Spanning Tree given by chosen algorithm on a grid
+    }
+
+    /**
+     * Prints average stats on generated spanning trees
+     * @param graph the graph where spanning trees will be generated on
+     * @param nbrOfSamples the number of spanning trees generated
+     */
+    private static void makeMeasures(Graph graph, int nbrOfSamples) {
         int diameterSum = 0;
         double eccentricitySum = 0;
         long wienerSum = 0;
-        int degreesSum[] = {0, 0, 0, 0, 0};
-        int degrees[];
+        int[] degreesSum = {0, 0, 0, 0, 0};
+        int[] degrees;
 
-        ArrayList<Edge> randomTree = null;
-        RootedTree rooted = null;
+        ArrayList<Edge> randomTree;
+        RootedTree rooted;
 
         long startingTime = System.nanoTime();
         for (int i = 0; i < nbrOfSamples; i++) {
-            Random rand = new Random();
-            int randomRoot = rand.nextInt(graph.order);
+            int randomRoot = new Random().nextInt(graph.order);
             randomTree= genTree(graph, randomRoot);
 
             rooted = new RootedTree(randomTree,randomRoot);
-//			rooted.printStats();
-            diameterSum = diameterSum + rooted.getDiameter();
-            eccentricitySum = eccentricitySum + rooted.getAverageEccentricity();
-            wienerSum = wienerSum + rooted.getWienerIndex();
+
+            diameterSum += rooted.getDiameter();
+            eccentricitySum += rooted.getAverageEccentricity();
+            wienerSum += rooted.getWienerIndex();
 
             degrees = rooted.getDegreeDistribution(4);
             for (int j = 1; j < 5; j++) {
@@ -83,23 +91,33 @@ public class Main {
         System.out.println("Average number of degree 2 vertices: "
                 + (degreesSum[2] / nbrOfSamples));
         System.out.println("Average computation time: "
-                + delay / (nbrOfSamples * 1_000_000) + "ms");
-
-
-        if (grid != null) showGrid(grid,rooted,randomTree);
+                + delay / (nbrOfSamples * 1_000_000L) + "ms");
     }
 
-    private static void showGrid(
-            Grid grid,
-            RootedTree rooted,
-            ArrayList<Edge> randomTree
-    ) throws InterruptedException {
+    /**
+     * Creates a grid and generates a spanning tree with the chosen algorithm
+     * Shows the spanning tree in a window
+     */
+    private static void visualiseOnGrid() {
+        Grid grid = new Grid(1920/11,1080/11);
+        Graph graph = grid.graph;
+
+        Random rand = new Random();
+        int randomRoot = rand.nextInt(graph.order);
+        ArrayList<Edge> randomTree= genTree(graph, randomRoot);
+        RootedTree rooted = new RootedTree(randomTree,randomRoot);
+
+        showGrid(grid,rooted,randomTree);
+    }
+
+    /**
+     * Creates a Labyrinth and shows it in a window
+     */
+    private static void showGrid(Grid grid, RootedTree rooted, ArrayList<Edge> randomTree) {
         JFrame window = new JFrame("solution");
         final Labyrinth laby = new Labyrinth(grid, rooted);
 
         laby.setStyleBalanced();
-//		laby.setShapeBigNodes();
-//		laby.setShapeSmallAndFull();
         laby.setShapeSmoothSmallNodes();
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,14 +132,6 @@ public class Main {
         laby.drawLabyrinth();
 
         window.setVisible(true);
-
-        // Pour générer un fichier image.
-//		try {
-//			laby.saveImage("resources/random.png");
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-
     }
 
 

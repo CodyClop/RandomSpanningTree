@@ -1,19 +1,19 @@
 import java.util.*;
 
 public class RandomArcInsertion {
-    private static int[] vertices_root;
+    private static int[] vertices_parent;
     private static int[] vertices_rank;
 
     public static ArrayList<Arc> generateTree(Graph graph) {
         ArrayList<Arc> arcsToAdd = new ArrayList<>();
         ArrayList<Arc> solution = new ArrayList<>();
 
-        vertices_root = new int[graph.order];
+        vertices_parent = new int[graph.order];
         vertices_rank = new int[graph.order];
 
 
         for (int k = 0; k < graph.order; k++) {
-            vertices_root[k] = k;
+            vertices_parent[k] = k;
             vertices_rank[k] = 0;
 
             arcsToAdd.addAll(graph.outNeighbours(k));
@@ -43,19 +43,19 @@ public class RandomArcInsertion {
         int y_root = find_root(y);
         if (x_root != y_root) {
             if (vertices_rank[x_root] < vertices_rank[y_root]) {
-                vertices_root[x_root] = y_root;
+                vertices_parent[x_root] = y_root;
             } else {
-                vertices_root[y_root] = x_root;
+                vertices_parent[y_root] = x_root;
                 if (vertices_rank[x_root] == vertices_rank[y_root]) vertices_rank[x_root]++;
             }
         }
     }
 
     private static int find_root(int vertex) {
-        if (vertices_root[vertex] != vertex) {
-            vertices_root[vertex] = find_root(vertices_root[vertex]);
+        if (vertices_parent[vertex] != vertex) {
+            vertices_parent[vertex] = find_root(vertices_parent[vertex]);
         }
         
-        return vertices_root[vertex];
+        return vertices_parent[vertex];
     }
 }

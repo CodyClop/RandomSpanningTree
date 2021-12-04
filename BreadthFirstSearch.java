@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Non-Random Breadth-First Search
+ */
 public class BreadthFirstSearch {
     public static ArrayList<Arc> generateTree(Graph graph, int start) {
         ArrayList<Arc> arcs = new ArrayList<>();
