@@ -1,3 +1,8 @@
+package algorithms.random.uniform;
+
+import graph.structure.Arc;
+import graph.structure.Graph;
+
 import java.util.*;
 
 public class RandomArcInsertion {

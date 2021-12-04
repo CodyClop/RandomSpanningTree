@@ -1,7 +1,11 @@
+package graph.type;
+
+import graph.structure.Edge;
+import graph.structure.Graph;
 
 public class Complete {
 
-	Graph graph;
+	public Graph graph;
 	
 	public Complete(int order) {
 		this.graph = new Graph(order);

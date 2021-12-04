@@ -1,5 +1,11 @@
+package algorithms.random.uniform;
+
+import graph.structure.Arc;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 
 public class AldousBroder {
     public static ArrayList<Arc> generateTree(Graph graph, int start) {

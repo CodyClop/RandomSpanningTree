@@ -1,3 +1,10 @@
+package graph.type;
+
+import graph.structure.Arc;
+import graph.structure.Edge;
+import graph.structure.Graph;
+import graph.tools.BreadthFirstSearch;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -5,9 +12,9 @@ import java.util.Random;
 public class ErdosRenyi {
 
 	private final static Random gen = new Random();
-	Graph graph;
-	private int order;
-	private double edgeProbability;
+	public Graph graph;
+	private final int order;
+	private final double edgeProbability;
 	
 	
 	private boolean isConnected() {

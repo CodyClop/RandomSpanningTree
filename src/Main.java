@@ -1,3 +1,19 @@
+import algorithms.random.RandomBFS;
+import algorithms.random.uniform.RandomArcInsertion;
+import algorithms.random.uniform.RandomMinWeightTree;
+import algorithms.random.uniform.Wilson;
+import graph.structure.Arc;
+import graph.structure.Edge;
+import graph.structure.Graph;
+import graph.tools.BreadthFirstSearch;
+import graph.tools.Labyrinth;
+import graph.tools.RootedTree;
+import graph.type.Complete;
+import graph.type.ErdosRenyi;
+import graph.type.Grid;
+import algorithms.random.uniform.AldousBroder;
+import graph.type.Lollipop;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,10 +30,10 @@ public class Main {
 
         /* -- Choose Uniform Random Spanning Tree Algorithm -- */
 
-        ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
+//        ArrayList<Arc> randomArcTree = RandomMinWeightTree.generateTree(graph, randomRoot);
 //        ArrayList<Arc> randomArcTree = AldousBroder.generateTree(graph, randomRoot);
 //        ArrayList<Arc> randomArcTree = Wilson.generateTree(graph, randomRoot);
-//        ArrayList<Arc> randomArcTree = RandomArcInsertion.generateTree(graph);
+        ArrayList<Arc> randomArcTree = RandomArcInsertion.generateTree(graph);
 
 
         /* -- Choose a Non-Random/Non-Uniform Spanning Tree Algorithm for comparison -- */
@@ -32,7 +48,7 @@ public class Main {
 
     public static void main(String[] argv) {
 
-        /* -- Choose Type Of Graph For Measures -- */
+        /* -- Choose Type Of graph.Graph For Measures -- */
 
         Graph graph = new Grid(1920/11,1080/11).graph;
 //		Graph graph = new Complete(400).graph;
@@ -111,7 +127,7 @@ public class Main {
     }
 
     /**
-     * Creates a Labyrinth and shows it in a window
+     * Creates a graphTools.Labyrinth and shows it in a window
      */
     private static void showGrid(Grid grid, RootedTree rooted, ArrayList<Edge> randomTree) {
         JFrame window = new JFrame("solution");

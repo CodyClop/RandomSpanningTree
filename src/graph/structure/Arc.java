@@ -1,7 +1,8 @@
+package graph.structure;
 
 public class Arc {
-	Edge support;
-	boolean reversed;
+	public Edge support;
+	public boolean reversed;
 	
 	public Arc(Edge e, boolean reversed) {
 		this.support = e;
@@ -15,5 +16,4 @@ public class Arc {
 	public int getDest() {
 		return (reversed ? support.getSource() : support.getDest());
 	}
-	
 }

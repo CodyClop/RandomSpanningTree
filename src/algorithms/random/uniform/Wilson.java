@@ -1,3 +1,8 @@
+package algorithms.random.uniform;
+
+import graph.structure.Arc;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

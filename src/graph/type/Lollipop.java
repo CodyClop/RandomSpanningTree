@@ -1,10 +1,15 @@
+package graph.type;
+
+import graph.structure.Edge;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 
 public class Lollipop {
 
-	Graph graph;
+	public Graph graph;
 	
 	public Lollipop(int order) {
 		graph = new Graph(order);

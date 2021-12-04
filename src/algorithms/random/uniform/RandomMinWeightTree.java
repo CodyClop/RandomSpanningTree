@@ -1,3 +1,9 @@
+package algorithms.random.uniform;
+
+import graph.structure.Arc;
+import graph.structure.Edge;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;

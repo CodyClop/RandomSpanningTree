@@ -1,3 +1,5 @@
+package graph.structure;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -6,8 +8,8 @@ import java.util.List;
 
 public class Graph implements Iterable<Edge>{
 
-	int order;
-	int edgeCardinality;
+	public int order;
+	public int edgeCardinality;
 	
 	ArrayList<LinkedList<Edge>> adjacency;
 	ArrayList<LinkedList<Arc>> inAdjacency;
@@ -34,9 +36,9 @@ public class Graph implements Iterable<Edge>{
 	
 	public void addVertex(int indexVertex) {
 		if (!isVertex(indexVertex)) {
-			adjacency.set(indexVertex, new LinkedList<Edge>());
-			inAdjacency.set(indexVertex, new LinkedList<Arc>());
-			outAdjacency.set(indexVertex, new LinkedList<Arc>());
+			adjacency.set(indexVertex, new LinkedList<>());
+			inAdjacency.set(indexVertex, new LinkedList<>());
+			outAdjacency.set(indexVertex, new LinkedList<>());
 			order++;
 		}
 	}
@@ -51,10 +53,10 @@ public class Graph implements Iterable<Edge>{
 	}
 	
 	public void addEdge(Edge e) {
-		ensureVertex(e.dest);
-		ensureVertex(e.source);
-		adjacency.get(e.dest).add(e);
-		adjacency.get(e.source).add(e);
+		ensureVertex(e.getDest());
+		ensureVertex(e.getSource());
+		adjacency.get(e.getDest()).add(e);
+		adjacency.get(e.getSource()).add(e);
 		
 		addArc(new Arc(e,false)); 
 		addArc(new Arc(e,true));
@@ -87,7 +89,7 @@ public class Graph implements Iterable<Edge>{
 
 	
 	public boolean isEdge(Edge e) {
-		return this.adjacency.get(e.dest).contains(e);
+		return this.adjacency.get(e.getDest()).contains(e);
 	}
 	
 	public Arc hasArc(int fromVertex, Edge e) {
@@ -104,10 +106,10 @@ public class Graph implements Iterable<Edge>{
 	
 	public void removeEdge(Edge e) {
 		if (this.isEdge(e)) {
-			this.adjacency.get(e.dest).remove(e);
-			this.adjacency.get(e.source).remove(e);
-			removeArc(hasArc(e.source, e));
-			removeArc(hasArc(e.dest,e));
+			this.adjacency.get(e.getDest()).remove(e);
+			this.adjacency.get(e.getSource()).remove(e);
+			removeArc(hasArc(e.getSource(), e));
+			removeArc(hasArc(e.getDest(),e));
 			edgeCardinality--;
 		}
 	}	
@@ -147,10 +149,6 @@ public class Graph implements Iterable<Edge>{
 		
 		public Edge next() {
 			return arcIt.next().support;
-		}
-		
-		public void remove() {
-			return;
 		}
 
 	}

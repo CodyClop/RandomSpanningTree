@@ -1,3 +1,8 @@
+package graph.tools;
+
+import graph.structure.Edge;
+import graph.type.Grid;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -11,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -19,6 +25,7 @@ import javax.swing.JPanel;
 
 public class Labyrinth extends JPanel {
 	
+	@Serial
 	private static final long serialVersionUID = 2192694920147985L;
 	int halfSide = 5;
 	int vertexMargin = 1;
@@ -116,14 +123,13 @@ public class Labyrinth extends JPanel {
 		float saturation = (float) 0.7;
 		float brightness = (float)
 				Math.min(100, brightnessSlope * height + minBrightness) / 100;
-		Color col = Color.getHSBColor(hue, saturation, brightness);
-		return col;
+		return Color.getHSBColor(hue, saturation, brightness);
 		
 	}
 	
 	private void drawVerticalEdge(Graphics2D g, Edge e) {
-		int source = Math.min(e.source, e.dest);
-		int dest = Math.max(e.source,e.dest);
+		int source = Math.min(e.getSource(), e.getDest());
+		int dest = Math.max(e.getSource(),e.getDest());
 		int xMin = side * grid.abscissaOfVertex(source) + corridorMargin;
 		int yMin = side * grid.ordinateOfVertex(source) + corridorStartShift;
 		Rectangle rect = new Rectangle(xMin,yMin,corridorWidth, 2*halfSide);
@@ -137,8 +143,8 @@ public class Labyrinth extends JPanel {
 	}
 	
 	private void drawHorizontalEdge(Graphics2D g, Edge e) {
-		int source = Math.min(e.source, e.dest);
-		int dest = Math.max(e.source,e.dest);
+		int source = Math.min(e.getSource(), e.getDest());
+		int dest = Math.max(e.getSource(),e.getDest());
 		int xMin = side * grid.abscissaOfVertex(source) + corridorStartShift;
 		int yMin = side * grid.ordinateOfVertex(source) + corridorMargin;
 		Rectangle rect = new Rectangle(xMin, yMin, 2*halfSide, corridorWidth);
@@ -203,7 +209,7 @@ public class Labyrinth extends JPanel {
 	}
 	
 	public void saveImage(String path) throws IOException {
-		ImageIO.write((RenderedImage) img,"PNG", new File(path));
+		ImageIO.write(img,"PNG", new File(path));
 	}
 	
 }

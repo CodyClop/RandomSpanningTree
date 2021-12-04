@@ -1,3 +1,8 @@
+package graph.tools;
+
+import graph.structure.Arc;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 

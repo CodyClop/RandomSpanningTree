@@ -1,3 +1,9 @@
+package graph.tools;
+
+import graph.structure.Arc;
+import graph.structure.Edge;
+import graph.structure.Graph;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -94,7 +100,7 @@ public class RootedTree {
 	ArrayList<Node> inverseBfsOrder;
 	ArrayList<Node> bfsOrder; 
 	
-	Node nodes[];
+	Node[] nodes;
 	Node root;
 	int order;
 	
@@ -126,7 +132,7 @@ public class RootedTree {
 		long count = 0;
 		for (Node n : bfsOrder) {
 			if (n == root) continue;
-			count = count + n.size * (order - n.size);
+			count = count + (long) n.size * (order - n.size);
 		}
 		return count;
 	}
@@ -235,7 +241,7 @@ public class RootedTree {
 	// 5) Computes height, size and depth of every node.
 	
 	private void resetBfsOrdering() {
-		Queue<Node> stack = new LinkedList<Node>();
+		Queue<Node> stack = new LinkedList<>();
 		stack.offer(root);
 		bfsOrder.clear();
 		inverseBfsOrder.clear();
@@ -272,7 +278,7 @@ public class RootedTree {
 	}
 	
 	
-	private void createNode(Node nodes[], Arc arc) {
+	private void createNode(Node[] nodes, Arc arc) {
 		int son = arc.getDest();
 		int father = arc.getSource();
 		nodes[son] = new Node(son);

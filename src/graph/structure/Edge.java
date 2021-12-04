@@ -1,9 +1,10 @@
+package graph.structure;
 
 public class Edge implements Comparable<Edge> {
 
-	protected int source;
-	protected int dest;
-	double weight;
+	private final int source;
+	private final int dest;
+	public double weight;
 	
 	public Edge(int source, int dest, double weight) {
 		this.source = source;
@@ -12,9 +13,7 @@ public class Edge implements Comparable<Edge> {
 	}
 	
 	public int compareTo(Edge e) {
-		if (this.weight == e.weight) return 0;
-		if (this.weight < e.weight) return -1;
-		return 1;
+		return Double.compare(this.weight, e.weight);
 	}
 	
 	public int oppositeExtremity(int vertex) {

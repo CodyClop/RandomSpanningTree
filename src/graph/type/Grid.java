@@ -1,13 +1,18 @@
+package graph.type;
+
+import graph.structure.Edge;
+import graph.structure.Graph;
+
 import java.util.BitSet;
 
 
 public class Grid {
 
-	int width;
-	int height;
-	int maxVertex;
+	public int width;
+	public int height;
+	public int maxVertex;
 	
-	Graph graph;
+	public Graph graph;
 	
 	public int abscissaOfVertex(int vertex) {
 		return vertex % width;
@@ -47,11 +52,11 @@ public class Grid {
 
 	
 	public boolean isHorizontal(Edge e) {
-		return Math.abs(e.source - e.dest) == 1;
+		return Math.abs(e.getSource() - e.getDest()) == 1;
 	}
 	
 	public boolean isVertical(Edge e) {
-		return Math.abs(e.source - e.dest) == width;
+		return Math.abs(e.getSource() - e.getDest()) == width;
 	}
 	
 	
@@ -79,9 +84,9 @@ public class Grid {
 		for (Edge e : edges) {
 //			System.out.println(e.fromVertex + " -- " + e.toVertex);
 			if (isHorizontal(e))
-				right.set(Math.min(e.source,e.dest));
+				right.set(Math.min(e.getSource(),e.getDest()));
 			if (isVertical(e))
-				up.set(Math.min(e.source,e.dest));
+				up.set(Math.min(e.getSource(),e.getDest()));
 		}
 		
 		for (int j = 0; j < height; j++) {
